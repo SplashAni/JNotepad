@@ -1,7 +1,16 @@
 package notepad.java;
 
+import notepad.java.Utils.Utils;
+
+import static notepad.java.Utils.Utils.isNew;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("soon ™");
+        if(!isNew()){
+            new Notepad();
+        }
+        else {
+            Utils.init();
+        }
     }
 }
