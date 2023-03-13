@@ -48,13 +48,18 @@ public class Notepad extends JFrame {
         editMenu.add(copyItem);
         editMenu.add(pasteItem);
 
-        JMenuItem themeConfigItem = new JMenuItem("theme");
-        JMenuItem usernameConfigItem = new JMenuItem("username");
-        JMenuItem resizeConfigItem = new JMenuItem("resizeable");
-        JMenuItem windowSizeConfigItem = new JMenuItem("windowSize");
+        JMenuItem themeConfigItem = new JMenuItem("Theme");
+        JMenuItem usernameConfigItem = new JMenuItem("Username");
+        JMenuItem resizeConfigItem = new JMenuItem("Resizeable");
+        JMenuItem windowSizeConfigItem = new JMenuItem("WindowSize");
+        JMenuItem configItem = new JMenuItem("Config");
         configMenu.add(themeConfigItem);
+        configMenu.add(resizeConfigItem);
         configMenu.add(usernameConfigItem);
         configMenu.add(windowSizeConfigItem);
+        configMenu.addSeparator();
+        configMenu.add(configItem);
+
 
         menuBar.add(fileMenu);
         menuBar.add(editMenu);
@@ -92,11 +97,13 @@ public class Notepad extends JFrame {
 
         usernameConfigItem.addActionListener(e -> openConfig("username.txt"));
         themeConfigItem.addActionListener(e -> openConfig("theme.txt"));
-        resizeConfigItem.addActionListener(e -> openConfig("resizable.txt"));
+        resizeConfigItem.addActionListener(e -> openConfig("resizeable.txt"));
         windowSizeConfigItem.addActionListener(e -> openConfig("windowSize.txt"));
+        configItem.addActionListener(e -> openConfig(""));
 
         Utils.setWindowSize(this);
         setVisible(true);
+        Utils.resizeable(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }

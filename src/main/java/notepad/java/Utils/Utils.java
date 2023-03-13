@@ -85,17 +85,34 @@ public class Utils {
         return content.toString();
     }
 
-    public static void init(){
+    public static void init(){ // basically setup
         FlatDarkLaf.install();
         config(false);
         createConfig();
 
+        // name
         String username = JOptionPane.showInputDialog("Whats your name?", "SplashAni");
         write(configFile +"username.txt", username);
 
+        // window size
+        String w = JOptionPane.showInputDialog(null, "Select the editors width", "800");
+        int width = Integer.parseInt(w);
+        String h = JOptionPane.showInputDialog(null, "Select the editors height", "600");
+        int height = Integer.parseInt(h);
+        write(configPath + separator + "windowSize.txt",width + "," + height);
+
+
+        //resizable
+        int response = JOptionPane.showConfirmDialog(null, "Should the editors window be resizable", "Boolean", JOptionPane.YES_NO_OPTION);
+        if (response == JOptionPane.YES_OPTION) {
+            write(configPath + separator + "resizeable.txt","true");
+        } else {
+            write(configPath + separator + "resizeable.txt", "false");
+        }
+
+        //theme
         String[] themes = {"Dark", "Light", "Custom"};
         String theme = (String) JOptionPane.showInputDialog(null, "Select an theme:", "Theme", JOptionPane.QUESTION_MESSAGE, null, themes, themes[0]);
-
         if(theme != null) { // i love java symbols :yum:
             write( "theme.txt", theme);
             write(configPath,"800,600");
@@ -115,6 +132,14 @@ public class Utils {
         int width = Integer.parseInt(splitValues[0]);
         int height = Integer.parseInt(splitValues[1]);
         window.setSize(width, height);
+    }
+    public static void resizeable(JFrame window){
+        switch (read(configPath + separator + "resizeable.txt")){
+            case "true":
+                window.setResizable(true);
+            case "false":
+                window.setResizable(false);
+        }
     }
     public static void openConfig(String which) {
         File open = new File(configFile + separator + which);
