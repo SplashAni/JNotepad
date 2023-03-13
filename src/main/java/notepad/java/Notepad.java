@@ -3,11 +3,12 @@ package notepad.java;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import notepad.java.Utils.ThemeUtils;
+import notepad.java.Utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static notepad.java.Utils.Utils.theme;
+import static notepad.java.Utils.Utils.*;
 
 public class Notepad extends JFrame {
     private JTextArea textArea;
@@ -27,6 +28,7 @@ public class Notepad extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
         JMenu editMenu = new JMenu("Edit");
+        JMenu configMenu = new JMenu("Config");
         JMenu windowMenu = new JMenu("Window");
 
         JMenuItem newFileItem = new JMenuItem("New");
@@ -46,8 +48,17 @@ public class Notepad extends JFrame {
         editMenu.add(copyItem);
         editMenu.add(pasteItem);
 
+        JMenuItem themeConfigItem = new JMenuItem("theme");
+        JMenuItem usernameConfigItem = new JMenuItem("username");
+        JMenuItem resizeConfigItem = new JMenuItem("resizeable");
+        JMenuItem windowSizeConfigItem = new JMenuItem("windowSize");
+        configMenu.add(themeConfigItem);
+        configMenu.add(usernameConfigItem);
+        configMenu.add(windowSizeConfigItem);
+
         menuBar.add(fileMenu);
         menuBar.add(editMenu);
+        menuBar.add(configMenu);
         menuBar.add(windowMenu);
 
         setJMenuBar(menuBar);
@@ -63,7 +74,7 @@ public class Notepad extends JFrame {
             int returnValue = fileChooser.showOpenDialog(null);
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 String filePath = fileChooser.getSelectedFile().getPath();
-                //soon ok
+                //ok
             }
         });
         saveFileItem.addActionListener(e -> {
@@ -79,7 +90,12 @@ public class Notepad extends JFrame {
         copyItem.addActionListener(e -> textArea.copy());
         pasteItem.addActionListener(e -> textArea.paste());
 
-        setSize(800, 600);
+        usernameConfigItem.addActionListener(e -> openConfig("username.txt"));
+        themeConfigItem.addActionListener(e -> openConfig("theme.txt"));
+        resizeConfigItem.addActionListener(e -> openConfig("resizable.txt"));
+        windowSizeConfigItem.addActionListener(e -> openConfig("windowSize.txt"));
+
+        Utils.setWindowSize(this);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
