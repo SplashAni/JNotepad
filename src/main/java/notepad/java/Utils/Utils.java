@@ -13,7 +13,7 @@ public class Utils {
     public static String mainPath = System.getProperty("user.home") + separator + "JNotepad";
     private static File mainFile = new File(mainPath);
 
-    public static String configPath = mainPath + separator + "config";
+    public static String configPath = mainPath + separator + "config"; // +separators cannot be added already tried it just wont work :pray:
     public static File configFile = new File(configPath);
 
 

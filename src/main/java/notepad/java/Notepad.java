@@ -11,7 +11,7 @@ import java.awt.*;
 import static notepad.java.Utils.Utils.*;
 
 public class Notepad extends JFrame {
-    private JTextArea textArea;
+    public static JTextArea textArea;
 
     public Notepad() {
         super("Notepad");
@@ -22,7 +22,8 @@ public class Notepad extends JFrame {
             case "Light":
                 FlatLightLaf.install();
             case "Custom":
-                ThemeUtils.Manager();
+                textArea = new JTextArea();
+                ThemeUtils.Manager(this,textArea);
         }
 
         JMenuBar menuBar = new JMenuBar();
@@ -102,8 +103,8 @@ public class Notepad extends JFrame {
         configItem.addActionListener(e -> openConfig(""));
 
         Utils.setWindowSize(this);
-        setVisible(true);
         Utils.resizeable(this);
+        setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
